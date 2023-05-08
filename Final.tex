@@ -1,0 +1,431 @@
+\documentclass[11pt]{exam}
+\usepackage{epsfig}
+\usepackage{bbm}
+\usepackage{soul}
+\usepackage{standalone}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage[centertags]{amsmath}
+\usepackage[makeroom]{cancel}
+\usepackage{dsfont}
+%\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\usepgfplotslibrary{fillbetween}
+\usepackage{amsthm}
+\usepackage[all]{xy}
+\usepackage{newlfont}
+\usepackage{amsmath,amssymb,bm,mathtools}
+\usepackage{cleveref}
+\usepackage{xcolor} %for color
+\usepackage{xmpmulti}
+%\usetheme{Air}
+%\usefonttheme{professionalfonts}
+\usepackage{thumbpdf}
+\usepackage{wasysym}
+\usepackage{upgreek}
+\usepackage{ucs}
+%\usepackage[utf8]{inputenc}
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps,pgfshade}
+\usepackage{verbatim}
+\usepackage{empheq}
+\usepackage{pythonhighlight}
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+
+\newcommand{\Integer}{\mathbb{Z}}
+\newcommand{\Natural}{\mathbb{Z}_{\geq 0}}
+\newcommand{\Naturalstar}{\mathbb{Z}_{> 0}}
+\newcommand{\Real}{\mathbb{R}}
+\newcommand{\Complex}{\mathbb{C}}
+\newcommand{\hilbert}{\mathcal{H}}
+\newcommand{\BigHilbert}{\bm{\mathcal{H}}}
+\newcommand{\innprod}[2]{\langle{#1},{#2}\rangle}
+\newcommand{\ginnprod}[2]{\langle\!\langle{#1},{#2}\rangle\!\rangle}
+\newcommand{\norm}[1]{\|{#1}\|}
+\newcommand{\mrm}[1]{{\mathrm #1}}
+\newcommand{\gnorm}[1]{|\!|\!|{#1}|\!|\!|}
+\newcommand{\expect}{\mathbb{E}}
+
+\newcommand{\gr}{\selectlanguage{greek}}
+
+%\newcommand{\red}{\color{myred}}
+%\newcommand{\blue}{\color{myblue}}
+%\newcommand{\black}{\color{myblack}}
+
+
+%\definecolor{BrickRed}{cmyk}{0,0.89,0.94,0.28}
+%\definecolor{pink}{RGB}{255,192,203}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{listings}
+\definecolor{white}{rgb}{1,1,1}
+\definecolor{mygreen}{rgb}{0,0.4,0}
+\definecolor{light_gray}{rgb}{0.97,0.97,0.97}
+\definecolor{mykey}{rgb}{0.117,0.403,0.713}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\tcbuselibrary{listings}
+\newlength\inwd
+\setlength\inwd{1.3cm}
+\newcounter{ipythcntr}
+\renewcommand{\theipythcntr}{\texttt{[\arabic{ipythcntr}]}}
+\newtcblisting{pyin}[1][]{%
+  sharp corners,
+  enlarge left by=\inwd,
+  width=\linewidth-\inwd,
+  enhanced,
+  boxrule=0pt,
+  colback=light_gray,
+  listing only,
+  top=0pt,
+  bottom=0pt,
+  overlay={
+    \node[
+      anchor=north east,
+      text width=\inwd,
+      font=\footnotesize\ttfamily\color{mykey},
+      inner ysep=0mm,
+      inner xsep=0pt,
+      outer sep=0pt
+      ] 
+      at (frame.north west)
+      {\refstepcounter{ipythcntr}\label{#1}In \theipythcntr:};
+  }
+  listing engine=listing,
+  listing options={
+    aboveskip=1pt,
+    belowskip=1pt,
+    basicstyle=\footnotesize\ttfamily,
+    language=Python,
+    keywordstyle=\color{mykey},
+    showstringspaces=false,
+    stringstyle=\color{mygreen}
+  },
+}
+\newtcblisting{pyprint}{
+  sharp corners,
+  enlarge left by=\inwd,
+  width=\linewidth-\inwd,
+  enhanced,
+  boxrule=0pt,
+  colback=white,
+  listing only,
+  top=0pt,
+  bottom=0pt,
+  overlay={
+    \node[
+      anchor=north east,
+      text width=\inwd,
+      font=\footnotesize\ttfamily\color{mykey},
+      inner ysep=2mm,
+      inner xsep=0pt,
+      outer sep=0pt
+      ] 
+      at (frame.north west)
+      {};
+  }
+  listing engine=listing,
+}
+\newtcblisting{pyout}[1][\theipythcntr]{
+  sharp corners,
+  enlarge left by=\inwd,
+  width=\linewidth-\inwd,
+  enhanced,
+  boxrule=0pt,
+  colback=white,
+  listing only,
+  top=0pt,
+  bottom=0pt,
+  overlay={
+    \node[
+      anchor=north east,
+      text width=\inwd,
+      font=\footnotesize\ttfamily\color{mykey},
+      inner ysep=2mm,
+      inner xsep=0pt,
+      outer sep=0pt
+      ] 
+      at (frame.north west)
+      {\setcounter{ipythcntr}{\value{ipythcntr}}Out#1:};
+  }
+}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\newcommand{\Prb}[1]{\mathbb{P}\left\{#1\right\}}
+\newcommand{\E}[1]{\mathbb{E}\left[#1\right]}
+
+\begin{document}
+\centerline{\Large \sc Final Project}
+\pagestyle{empty}
+
+\hrulefill
+
+\vspace{2cm}
+
+{\Large \sc Name:}
+% {\Large \sc Name: Ignacio Losada}
+
+% Simple examples, convex/nonconvex functions.
+% Function x2 + y2, convex and non-convex
+
+% Min quadratic (OLS) s.t. linear constraints
+
+
+\vspace{2cm}
+
+
+{\Large \sc Student ID:} 
+
+% {\Large \sc Student ID: 5343825}
+
+\vspace{6cm}
+
+\begin{itemize}
+  \item Reasoning and work must be shown to gain partial/full
+  credit
+  \item Please include the cover-page on your homework PDF with your name and student ID. Failure of doing so is considered bad citizenship. 
+
+ \end{itemize}
+
+\clearpage
+\noindent In this problem, you are going to run a unit commitment problem based on the software that is provided and your task is explain various aspects of the formulation. 
+\\[0.1cm]
+\underline{\bf Review of the Security-constrained Unit Commitment}: The Security-constrained Unit Commitment (SUC) is the optimization minimizing the operational cost of generation that the ISO runs to make decisions about: 1) the generators units that will be online/offline (committed or not) in each of the next 24 hours; 2) the amount of reserves that are needed to balance the loss of a single generator (any generator), which is why is its name includes the adjective "security-constrained". The SCUC incorporates the dynamic safety constraints of generators (namely, how long can they stay on, and off once they are turned off, how fast they can ramp), which is the reason why one cannot solve it instant by instant. 
+\\[0.1cm]
+\underline{\bf Data for the problem}:  In this problem, you are given a single file (ieee118.xls) which contains multiple sheets. The metadata corresponding to each sheet is explained below,
+\vspace{-0.5cm}
+\begin{table}[!htbp]
+\centering
+\caption{Generation metadata}
+\begin{tabular}{@{}cc@{}}
+\toprule
+\textbf{Generation}           &                                                \\ \midrule
+\textbf{GenNumber}            & Generator number                               \\
+\textbf{Bus}                  & Generator's bus                                \\
+\textbf{Pmax}                 & Generator's maximum generation level, in MW    \\
+\textbf{Pmin}                 & Generator's minimum generation level, in MW    \\
+\textbf{LinearCost}           & Generator's variable operating cost, in \$/MWh \\
+\textbf{StartupCost}          & Startup cost of generator, in \$               \\
+\textbf{ShutdownCost}         & Shutdown cost of generator, in \$              \\
+\textbf{ReserveCost}          & Reseve cost of generator, in \$                \\
+\textbf{NoLoadCost}           & No-load cost of generator, in \$               \\
+\textbf{minDOWN}              & Minimum down time for generator, in hr         \\
+\textbf{minUP}                & Minimum up time for generator, in hr           \\
+\textbf{HourlyRamp}           & Generator hourly ramp rate, in MW/hr           \\
+\textbf{Startup/ShutdownRamp} & Startup/Shutdown level for generator, in MW/hr \\ \bottomrule
+\end{tabular}
+\end{table}
+\vspace{-0.5cm}
+\begin{table}[!htbp]
+\centering
+\caption{Bus metadata}
+\begin{tabular}{@{}cc@{}}
+\toprule
+\textbf{Bus}       &                          \\ \bottomrule
+\textbf{BusNumber} & Bus number               \\
+\textbf{Pload}     & Bus' real power load     \\
+\textbf{Qload}     & Bus' reactive power load \\ \bottomrule
+\end{tabular}
+\end{table}
+\vspace{-0.5cm}
+\begin{table}[!htbp]
+\centering
+\caption{Branch metadata}
+\begin{tabular}{@{}cc@{}}
+\toprule
+\textbf{Branch}         &                                     \\ \bottomrule
+\textbf{branch\_number} & Branch number                       \\
+\textbf{from\_bus}      & From bus number of the branch       \\
+\textbf{to\_bus}        & To  bus number of the branch        \\
+\textbf{LineR}          & Resistance of line, in pu           \\
+\textbf{LineX}          & Reactance of line, in pu            \\
+\textbf{B(susceptance)} & Susceptance of line                 \\
+\textbf{rateA}          & Continuous rating for branch, in MW \\
+\textbf{rateC}          & Emergency rating for branch, in MW \\ \bottomrule
+\end{tabular}
+\end{table}
+\vspace{-0.5cm}
+\begin{table}[!htbp]
+\centering
+\caption{Load metadata}
+\begin{tabular}{@{}cc@{}}
+\toprule
+\textbf{Load} &                                                                         \\ \bottomrule
+Hour          & Hour of day                                                             \\
+Day           & Percentage of load at a given hour and day X, referenced to   base load \\ \bottomrule
+\end{tabular}
+\end{table}
+\newpage
+
+\begin{questions}
+\question{\bf SCUC formulation}: Let $\mathcal{G} := \{\mathcal{V},\mathcal{E}\}$ be the graph associated with the grid where $\mathcal{V}$ is the set of buses and $\mathcal{E}$ is the set of lines/edges such that edge $e := \{i,j\} \in \mathcal{E}$ connects two buses $i,j \in \mathcal{V}$. Let $N := |\mathcal{V}|$ denotes the number of buses and $E := |\mathcal{E}|$ is the number of edges  ($|{\cal S}|$ is the cardinality of a set ${\cal S}$). In the network, there is a set of generator $\mathcal{N}_g$ of size $N_g := |\mathcal{N}_g|$.  All active power generators injections at time $t$ are stacked in the column vector $\mathbf{p}^g_t \in \mathbbm{R}^{N_g}$ where $t \in \mathcal{T}$ and ${\cal T}$ is the time horizon of 24h.  Since the generators are only in some of the buses, the selection matrix $\mathbf{E}_g \in \{0,1\}^{N\times N_g}$ is such that entries of vector $\mathbf{E}_g \mathbf{p}^g_t$ is are either 0 (for buses without generation) or the  generator injection (for the buses with generators). For each generator the SCUC decides three types of binary variables at time $t$, in the entries of the vectors $\mathbf{u}_t, \mathbf{v}_t, \mathbf{w}_t \in \{0,1\}^{N_g}$, where $\mathbf{u}_t$ are the commitment, $\mathbf{v}_t$  are the start-up and $\mathbf{w}_t$ are the shut-down status of the generators. The costs associated to the status being one are no-load, start-up and shut-down costs $\mathbf{c}_{nl},\mathbf{c}_{su}$ and $\mathbf{c}_{sd}$ vectors. In addition to providing power $\mathbf{p}^g_t$ at cost $\mathbf{c}_l$, generators can provide reserves $\mathbf{p}^r_t \in \mathbbm{R}^{N_g}$ at cost $\mathbf{c}_{r}$. A security-constrained unit commitment (SCUC) is formulated as a mixed-integer linear program of the form:
+
+% \begin{subequations}\label{ucpoweroptproblem}
+% \begin{align}
+% \!\!\!\! \min \quad & \sum_{t}\left(\mathbf{c}_l^\intercal\mathbf{p}_{t}+\mathbf{c}_{nl}^\intercal\mathbf{u}_{t}+\mathbf{c}_{su}^\intercal\mathbf{v}_{t}+\mathbf{c}_{sd}^\intercal\mathbf{w}_{t} + \mathbf{c}_r^\intercal\mathbf{r}_{t}\right), \label{eq:uc-objective}\\
+% \!\!\!\! \text{s.t.} \quad & -\mathbf{\overline{p}}_{\ell} \leq \text{diag}(\textbf{b}) \textbf{M}\boldsymbol{\theta}_t \leq \mathbf{\overline{p}}_{\ell}, \quad \forall t\in \mathcal{T}, \label{eq:uc-flowlimits}\\
+% & \text{diag}(\mathbf{\underline{p}})\mathbf{u}_{t}+\mathbf{r}_{t}\leq \mathbf{p}_t\leq \text{diag}(\mathbf{\overline{p}})\mathbf{u}_{t}-\mathbf{r}_{t}, \quad \forall t\in \mathcal{T},  \label{eq:uc-capacitylimits}\\
+% & \mathbf{E}_g\mathbf{p}_t -  \mathbf{d}_t = \mathbf{B} \boldsymbol{\theta}_t, \quad \forall t\in \mathcal{T}, \label{eq:uc-powerflow}\\
+% & \mathbf{p}_{t}-\mathbf{p}_{t-1}\leq \text{diag}(\overline{\textbf{r}}_{hr})\mathbf{u}_{t-1}+\text{diag}(\overline{\textbf{r}}_{su})\mathbf{v}_{t}, \quad \forall t\in \mathcal{T}, \label{eq:uc-startupramping}\\
+% & \mathbf{p}_{t-1}-\mathbf{p}_{t}\leq \text{diag}(\overline{\textbf{r}}_{hr})\mathbf{u}_{t}+\text{diag}(\overline{\textbf{r}}_{sd})\mathbf{w_{t}}, \quad \forall t\in \mathcal{T},\label{eq:uc-stutdownramping}\\
+% & \sum_{s=t-t^u_{g}+1}^{t}\left[\mathbf{v}_{s}\right]_g\leq \left[\mathbf{u}_{t}\right]_g, \quad \forall t \in \{t^u_{g},\dots,N\}, \forall g \in \{1,\dots,N_g\}, \label{eq:uc-minuptime}\\
+% & \sum_{s=t-t^d_{g}+1}^{t}\left[\mathbf{w}_{s}\right]_g\leq 1-\left[\mathbf{u}_{t}\right]_g, \quad \forall t \in \{t^d_{g},\dots,N\}, \forall g \in \{1,\dots,N_g\},\label{eq:uc-mindowntime}\\
+% & \mathbf{v}_{t}-\mathbf{w}_{t}=\mathbf{u}_{t}-\mathbf{u}_{t-1}, \quad \forall t\in \mathcal{T}, \label{eq:uc-commitmentconstraints}\\
+% % & \mathbbm{1}^\intercal\mathbf{r}_{t}\geq 0.07\mathbf{d}^\intercal_{t}\mathbbm{1}, \quad \forall t\in \mathcal{T}, \\
+% & \left(\mathbbm{1}^{\mathrm{T}}\mathbf{r}_{t}\right)\odot\mathbbm{1}\geq \mathbf{p}_{t}+\mathbf{r}_{t}, \quad \forall t\in \mathcal{T},  \label{eq:uc-n1constraint}\\
+% & \mathbf{0} \leq \mathbf{r}_{t}\leq \text{diag}(\mathbf{\overline{p}})\mathbf{u}_{t}, \quad \forall t\in \mathcal{T}. \label{eq:reserve-constraints}\\
+% \end{align}
+% \end{subequations}
+\begin{subequations}\label{ucpoweroptproblem}
+\begin{align}
+\!\!\!\! \min \quad & \sum_{t\in \mathcal{T}}\left(\mathbf{c}_l^\intercal\mathbf{p}^q_{t}+\mathbf{c}_{nl}^\intercal\mathbf{u}_{t}+\mathbf{c}_{su}^\intercal\mathbf{v}_{t}+\mathbf{c}_{sd}^\intercal\mathbf{w}_{t} + \mathbf{c}_r^\intercal\mathbf{p}^r_{t}\right), \label{eq:uc-objective}\\
+\!\!\!\! \text{s.t.} \quad & -\mathbf{\overline{P}}_{\ell} \leq \text{diag}(\textbf{b}) \textbf{M}\boldsymbol{\theta}_t \leq \mathbf{\overline{P}}_{\ell}, \quad \forall t\in \mathcal{T}, \label{eq:uc-flowlimits}\\
+& \text{diag}(\mathbf{\underline{p}^g})\mathbf{u}_{t}+\mathbf{p}^r_{t}\leq \mathbf{p}^g_t\leq \text{diag}(\mathbf{\overline{p}^g})\mathbf{u}_{t}-\mathbf{p}^r_{t}, \quad \forall t\in \mathcal{T},  \label{eq:uc-capacitylimits}\\
+& \mathbf{E}_g\mathbf{p}^g_t -  \mathbf{p}^d_t = \mathbf{B} \boldsymbol{\theta}_t, \quad \forall t\in \mathcal{T}, \label{eq:uc-powerflow}\\
+& \mathbf{p}^g_{t}-\mathbf{p}^g_{t-1}\leq \text{diag}(\overline{\textbf{r}}_{hr})\mathbf{u}_{t-1}+\text{diag}(\overline{\textbf{r}}_{su})\mathbf{v}_{t}, \quad \forall t\in \mathcal{T}, \label{eq:uc-startupramping}\\
+& \mathbf{p}^g_{t-1}-\mathbf{p}^g_{t}\leq \text{diag}(\overline{\textbf{r}}_{hr})\mathbf{u}_{t}+\text{diag}(\overline{\textbf{r}}_{sd})\mathbf{w_{t}}, \quad \forall t\in \mathcal{T},\label{eq:uc-stutdownramping}\\
+& \sum_{s=t-T^{on}_{i}+1}^{t}\left[\mathbf{v}_{s}\right]_i\leq \left[\mathbf{u}_{t}\right]_i, \quad \forall t \in \{T^{on}_{i},\dots,N\}, \forall i \in \{1,\dots,N_g\}, \label{eq:uc-minuptime}\\
+& \sum_{s=t-T^{\text{off}}_{i}+1}^{t}\left[\mathbf{w}_{s}\right]_i\leq 1-\left[\mathbf{u}_{t}\right]_i, \quad \forall t \in \{T^{\text{off}}_{i},\dots,N\}, \forall i \in \{1,\dots,N_g\},\label{eq:uc-mindowntime}\\
+& \mathbf{v}_{t}-\mathbf{w}_{t}=\mathbf{u}_{t}-\mathbf{u}_{t-1}, \quad \forall t\in \mathcal{T}, \label{eq:uc-commitmentconstraints}\\
+% & \mathbbm{1}^\intercal\mathbf{r}_{t}\geq 0.07\mathbf{d}^\intercal_{t}\mathbbm{1}, \quad \forall t\in \mathcal{T}, \\
+& \left(\mathbbm{1}^{\mathrm{T}}\mathbf{p}^r_{t}\right)\geq [\mathbf{p}^g_{t}+\mathbf{p}^r_{t}]_i, \quad \forall t\in \mathcal{T},~~\forall i\in\{1,\ldots,N_g\} ,  \label{eq:uc-n1constraint}\\
+& \mathbf{0} \leq \mathbf{p}^r_{t}\leq \text{diag}(\mathbf{\overline{p}^g})\mathbf{u}_{t}, \quad \forall t\in \mathcal{T}. \label{eq:reserve-constraints}
+\end{align}
+\end{subequations}
+where $\mathbf{\overline{P}}_{\ell} \in \mathbbm{R}^{E}$ is the vector of \textit{Rate A} thermal capacity limits of the lines, $\mathbf{b} \in \mathbbm{R}^{E}$ is the vector of line susceptances in p.u., $\textbf{M} \in \{-1,0,1\}^{N\times E}$ is the directed incidence matrix of the graph $\mathcal{G}$ and $\boldsymbol{\theta}_t \in \mathbbm{R}^{N}$ is the vector of voltage angles. The vectors $\mathbf{\underline{p}}^g$ and $\mathbf{\overline{p}}^g \in \mathbbm{R}^{N_g}$ denote the minimum and maximum capacity limits of the generators. Furthermore, $\mathbf{p}^d_t \in \mathbbm{R}^{N}$ denotes the vector of nodal demand and $\textbf{B}:= \textbf{M}\text{diag}(\textbf{b})\textbf{M}^\intercal, \textbf{B} \in \mathbbm{R}^{N\times N} $ is the matrix of susceptances. Also, the vectors $\overline{\textbf{r}}_{hr},\overline{\textbf{r}}_{su},\overline{\textbf{r}}_{sd} \in \mathbbm{R}^{N_g}$ denote the maximum hourly, start-up and shut-down ramp rates the generators can tolerate. The scalars $T^{\text{on}}_i$ and $T^{\text{off}}_i$ denote the minimum up and down times of generator $i \in \mathcal{N}_g$ in hours. Finally, $\left[\mathbf{x}_t\right]_i$ denotes the $i$-th element of vector $\mathbf{x}$ at time $t$. Eq. \eqref{eq:uc-objective} is the total operational cost to be minimized and includes the cost of energy, reserves and commitment/start-up/shut-down costs. Eq. \eqref{eq:uc-flowlimits} enforces the thermal capacity limits of the lines and Eq. \eqref{eq:uc-capacitylimits} includes the capacity limits of the generators. The power flow constraint is included in Eq. \eqref{eq:uc-powerflow}. Eqs. \eqref{eq:uc-startupramping}-\eqref{eq:uc-stutdownramping} denote the ramping constraints and consider the start-up and shut-down ramping rates. The minimum up and down time constraints are given by Eqs. \eqref{eq:uc-minuptime} and \eqref{eq:uc-mindowntime}. Eq. \eqref{eq:uc-commitmentconstraints} ensures that the commitment variables are consistent with the start-up and shut-down variables. The N-1 reliability constraint is given by Eq. \eqref{eq:uc-n1constraint} and Eq. \eqref{eq:reserve-constraints} ensure that the reserves provided by the generator are greater or equal than zero and less than the capacity of the generator.
+\question[1--5]{\bf Questions on the SCUC}: 
+\begin{parts}
+\item (\textbf{1 points}) Consider the constraints that contain the binary variables, specifically:\\ Eqs. \eqref{eq:uc-capacitylimits}, \eqref{eq:uc-startupramping},\eqref{eq:uc-stutdownramping},\eqref{eq:uc-minuptime},\eqref{eq:uc-mindowntime},\eqref{eq:uc-commitmentconstraints},\eqref{eq:reserve-constraints}. Explain in words why each of the constraints ensures that the units are operated within the safety constraints. You can draw different examples to explain your words. (E.g. you can assume that a generator is up and turns off, or a generator is off and turns on, etc)
+\item (\textbf{0.25 points}) Here constraint \eqref{eq:uc-n1constraint} ensures that each generator can fail and there are enough reserves to replace it. Explain why.
+\item (\textbf{0.25 points}) Install \textbf{gurobi} in your machine. Create an account in \url{gurobi.com} and download the software compatible with your OS from \url{https://www.gurobi.com/downloads/gurobi-software/}. You should request a \textit{Named-User Academic} student license from \url{https://portal.gurobi.com/iam/licenses/list}. Once you get the license, activate it by running the \textit{grbgetkey} command from terminal followed by your license key. You need to be on campus to complete this step (using the VPN form Cornell will not work). Then, install the python package \textbf{gurobipy}\footnote{\url{https://pypi.org/project/gurobipy/}} on your anaconda environment. Run the code below and provide a screenshot of the output.
+\begin{pyin}
+import cvxpy as cp
+import numpy as np
+# Generate a random problem
+np.random.seed(0)
+m, n= 40, 25
+
+A = np.random.rand(m, n)
+b = np.random.randn(m)
+# Construct a CVXPY problem
+x = cp.Variable(n, integer=True)
+objective = cp.Minimize(cp.sum_squares(A @ x - b))
+prob = cp.Problem(objective)
+prob.solve(solver = cp.GUROBI,verbose = True)
+\end{pyin}
+\item (\textbf{0.25 points}) Build the vectors of constants, i.e. the vectors $\mathbf{c}_{l}$, $\mathbf{c}_{nl},\mathbf{c}_{su}$, $\mathbf{c}_{sd}$, $\mathbf{c}_{r}$, $\mathbf{\overline{P}}_{\ell}$, $\mathbf{b}$, $\mathbf{M}$, $\mathbf{\underline{p}}^g$, $\mathbf{\overline{p}}^g$, $\mathbf{E}_g$, $\mathbf{B}$, $\overline{\textbf{r}}_{hr}$, $\overline{\textbf{r}}_{su}$ and $\overline{\textbf{r}}_{sd}$. Do not forget to express the susceptance, thermal limits, and capacity limits in p.u. The price constants do not need any transformations. You do not need to print the vectors or make any plots.
+\item (\textbf{0.25 points}) For each day, create a matrix of nodal demands $\mathbf{P}^d := \left[\mathbf{p}^d_1,\dots,\mathbf{p}^d_{24}\right]\in \mathbbm{R}^{N \times T}$ where $T$ is the number of time intervals, in hours, i.e. $T := 24$. You should have one matrix per day. Then, for each day, sum over the columns of $\mathbf{P}^d$ and plot the resulting curves. You should have a plot with 5 curves, one per day, where the x-axis denotes hour of the day (1 through 24) and the y-axis denotes total load in MW. Which day has the highest load? Which has the lowest? What day would you expect the total operational cost to be the highest? Why? Comment your results.
+% \item In \textit{cvxpy}, create the matrices of variables, that is $\mathbf{p} \in \mathbbm{R}^{N_g \times T}$, and $\mathbf{u}$, $\mathbf{v}$, $\mathbf{w}, \in \{0,1\}^{N_g \times T}$ and $\boldsymbol{\theta} \in \mathbbm{R}^{N \times T}$. Each time index $t \in \mathcal{T}$ can be indexed as follows $\textbf{x}[:,t]$ where $\textbf{x}$ is the variable of interest.
+\item (\textbf{2 points}) Use the code provided in \textit{uc.py}, parse the test case file \textit{ieee118.xlsx} to solve Eq. \eqref{ucpoweroptproblem} for the scenario provided in the first day.
+\begin{enumerate}
+    \item (\textbf{1 points}) Solve Eq. \eqref{ucpoweroptproblem} for the scenario provided in the first day. You need to feed the code with all the variables that you created before. You can use a \textit{MIPgap = 0.01} to speed up the convergence (it should take around 5 minutes to run a single day). Provide all the code you have used to solve the problem (without the output) in a single cell.
+    \item (\textbf{0.25 points}) Report the objective cost and running time.
+    \item (\textbf{0.25 points}) Provide a table with 24 rows (one by hour) and 5 columns, with the aggregated generation, aggregated demand and aggregated reserves by hour. The fourth column should contain the ID of the generator that is providing the largest injection and reserves combined. The fifth column should contain the dispatch and reserve sum for the generator in column 4. What do you observe? Are your constraints being enforced?
+    \item (\textbf{0.25 points}) Use the matplotlib function \textit{imshow}\footnote{\url{https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.imshow.html}} to plot the matrices of binary variables $\mathbf{u},\mathbf{v}$ and $\mathbf{w}$. What generators are being committed? What generators turn on/off the most? Is this consistent with the minimum up/down times? Comment your results. \item (\textbf{0.25 points}) Calculate the reserve margin of the system by hour. The reserve margin is the amount of capacity left in the system to meet demand, i.e. $\mathbbm{1}^\intercal\overline{\mathbf{p}^g} - \mathbbm{1}^\intercal \mathbf{p}^g_t, \forall t$. Based on the reserve margin, would the system be able to meet the hourly demand if there is it increases hourly by 50\%? Comment your results.
+\end{enumerate}
+\item (\textbf{1 points}) Now, solve the problem for each day. You should solve each of day, one a time, using the load given in the excel file. For days $d = 2,\dots,5$, the inter-temporal constraints in Eqs. \eqref{eq:uc-startupramping}-\eqref{eq:uc-mindowntime} should be consistent with the decisions you made the previous day, i.e. $d-1$. For example, between Day 1 Hour 24, and Day 2, Hour 1, the generators should not violate the ramping constraints in Eq. \eqref{eq:uc-startupramping}-\eqref{eq:uc-stutdownramping}. The same applies to the minimum up/down time constraints in Eqs. \eqref{eq:uc-minuptime}-\eqref{eq:uc-mindowntime}, e.g. if a generator turned off on Day 1 and hour 23 and the generator has a minimum down time of 4 hours, the generator should not be able to turn on until Day 2, hour 2. Also, on Day d, the decisions for Day d-1 are already taken, and you should treat those variables as given data (\textbf{do not re-optimize} variables from the previous day). For each day, report the running time and objective cost.
+
+\end{parts}
+\newpage 
+\question[1--3]{\bf Electric vehicles (Lecture 23, Slides 54 onwards)}: 
+In the next part, we can model the increase load that would incur due to EV charging in the unit commitment problem, assuming that at every bus $b$ the electric load of charging vehicles is added to the demand considered in the previous problem.
+Recall that the model for the feasible set of aggregate load of EVs can be represented as follows, assuming that one can charge at an arbitrary rate (but not discharge):
+\begin{align}\label{feasible}
+\mathcal{L} = \bigg\{&p^d(t) | p^d(t) =  \rho   \!\!\! \sum_{(\bm{x},\bm{x}')}\!\!\! (\bm{x}' \!- \!\bm{x})\,\partial{d}_{\bm{x},\bm{x}'}(t), ~~ \partial{d}_{\bm{x},\bm{x}'}(t) \in \mathbb{Z}^+\  \forall (\bm{x}, \bm{x}')\\ 
+	&n_{\bm{x}}(t)=a_{\bm{x}}(t)+\sum_{\bm{x}'\in\mathcal{U}_{\bm{x}}} \partial{d}_{\bm{x},\bm{x}'}(t) \ \forall \bm{x}, \nonumber \\ 
+	& \mathcal{U}_{\bm{x}} = \big\{\bm{x}' \, |\, \|\bm{x}' - \bm{x}\|_1 = \min(\|\bm{x}\|_1, 1), ~~ (\bm{x}-\bm{x}')_r \geq 0, (\bm{x}-\bm{x}')_s \geq 0 \bigg\} 
+\nonumber
+\end{align}
+and $\bm x=(r,s)$ refers to the residual time to fully charge and the slack time, $n_{\bm x}(t)$ is the number of cars plugged at time $t$ that have residual time to fully charge and  slack time $\bm x=(r,s)$, $n_{\bm x}(t)$, $a_{\bm x}(t)$ are the additional cars that plug in at time $t$ and arrive in state $\bm x$, $\partial{d}_{\bm{x},\bm{x}'}(t)={d}_{\bm{x},\bm{x}'}(t)-{d}_{\bm{x},\bm{x}'}(t-1)$ is the number of cars that change their state from $\bm x$ to $\bm x'$ as discussed in Lecture 23.
+\begin{enumerate}
+    \item (\textbf{0.75 points}) Explain how you calculate the initial residual time to charge $r$ from the battery capacity of the vehicle $E$, state of charge $SoC_i$  and rate of charge $\rho$. 
+   \item (\textbf{0.75 points}) Explain why a state $\bm x=(r,s)$ of a car is such that:
+   \[\|\bm x\|_1=r+s=\chi-t^a,~~~~~~r=0,\ldots,T^r,~~s=0, \ldots, T^s.\]
+\end{enumerate}
+Assume $r=0,\ldots,T^r$, and the slack time $s=0, \ldots, T^s$ and and that between $t$ and $t+1$ the cars can only reduced $r$ by one, because the rate of charge is fixed. 
+Consider the following scenarios: 
+\begin{enumerate}
+\item (\textbf{0.75 points}) The charging occurs as soon as the car plugs in. In this case in each time instant all cars $n_{\bm x}(t)$ charge and therefore: 
+\[ \partial d_{(r,s),(r',s')}(t)
+=\begin{cases}
+n_{(r',s')}(t-1) & r'=r-1,s'=s,~r>0,~r=0,\ldots,T^r,~~s=0, \ldots, T^s\\
+0 & \mbox{else}
+\end{cases}.
+\]
+Explain why that is the case. 
+    \item (\textbf{0.75 points}) The case where the load $p^d(t)$ profile is controlled and decided together with the schedule and commitment decisions considering what is the feasible aggregate load and selecting the best load profile. Explain why the action that can be taken $ \partial d_{(r,s),(r',s')}(t)$ can only be within the set ${\cal U}_{\bm x,\bm x'}$
+\end{enumerate}
+%Recall that in the aggregate EV model each car plugs in with a certain residual time to charge and slack time  $n_x(t)$ that are present in the system at time $t$ and are at quantized state $x$, discarding information that identifies individual appliances. 
+%Similarly, we denote as $a_x(t)$ the total number of EVs that arrive in the system with an initial state of charge equal to $x$ at, or before, time $t$. 
+%Next, we directly tie the evolution of $n_x(t)$ and $a_x(t)$ to the total load $L(t)$.  We denote by $d_{x, x^{\prime}}(t)$ the number of EVs that go from state $x$ to state $x^{\prime}$ at time $t$. We we refer to this number as the switch process from state $x$ to $x^{\prime}$. We define $d_{x, x}(t)=0, \forall t, x$, and $d_{x, x^{\prime}}(0)=0, \forall x, x^{\prime}$. We denote finite differences with respect to time as $\partial d_{x, x^{\prime}}(t) = d_{x, x^{\prime}}(t+1) - d_{x, x^{\prime}}(t)$. 
+%Thus, the load plasticity of a $L(t)$ of a population of ideal EVs can be presented in terms of the $d_{x, x^{\prime}}(t)$ 's, under appropriate constraints:
+%\begin{aligned}
+%\mathcal{L}(t)= & \left\{L(t) \mid L(t)=\sum_{x=0}^E \sum_{x^{\prime}=0}^E\left(x^{\prime}-x\right) \partial d_{x, x^{\prime}}(t), \partial d_{x, x^{\prime}}(t) \ge 0, \sum_{x^{\prime}=0}^E \partial d_{x, x^{\prime}}(t) \leq n_x(t)\right\},
+%\end{aligned}
+%where $n_x(t)$ is given by 
+%\begin{equation}n_x(t)=a_x(t)+\sum_{x^{\prime}=0}^5\left[d_{x^{\prime}, x}(t-1)-d_{x, x^{\prime}}(t-1)\right].
+%\end{equation}
+%The second constraint ensures that the number of appliances that leave state $x$ at time $t$ is less than or equal to the number of appliances present in state $x$ at time $t$, i.e., $n_x(t)$.  For example, if $E = 5$, the EV charging demand is 
+%$$\begin{aligned} &L(t)=\sum_{x=0}^5 \sum_{x^{\prime}=0}^5\left(x^{\prime}-x\right) \partial d_{x, x^{\prime}}(t), \\
+% &s.t.~~ \partial d_{x, x^{\prime}}(t) \ge 0, \sum_{x^{\prime}=0}^5 \partial d_{x, x^{\prime}}(t) \leq n_x(t), \\
+%&~~~~~~n_x(t)=a_x(t)+\sum_{x^{\prime}=0}^5\left[d_{x^{\prime}, x}(t-1)-d_{x, x^{\prime}}(t-1)\right].
+%\end{aligned}$$
+%where $a_x(t)$ is given in the attached file,  ``EV\_generation.py". In this function, your input is the number of bus (e.g. Nbus = 118 for the IEEE 118-bus system),   and the charging capacity $E =5$, and the length of Time (e.g. Tnum = 24 for a 24-hour window). The output is a matrix of new-arrival EV numbers with a dimension $(118, 6, 24)$. The $j$ row and $t$ column of this matrix is the number of new-arrival EV numbers $a^j_x(t)$.
+%\begin{itemize}   \item If EV charging is not controllable (i.e., EV charging only has the charging option with charging ratio  $x^{\prime} = x +1$), the EV charging demand for bus $j$ is:
+    $$
+%\begin{aligned}
+% &L^j(t)=\sum_{x=0}^5   \partial d^j_{x, x+1}(t), \\
+% &s.t.~~   \partial d^j_{x, x+1}(t) = a^j_x(t)+ \left[d^j_{x-1, x}(t-1)-d^j_{x,x+1}(t-1)\right].
+%\end{aligned}
+$$
+%In order to ensure $\partial d^j_{x, x^{\prime}}(t)  \ge 0$, if $a^j_x(t)+ \left[d^j_{x-1, x}(t-1)-d^j_{x,x+1}(t-1)\right] < 0$, we update $d^j_{x-1, x}(t-1) = d^j_{x,x+1}(t-1)$.
+%
+%We set the initial condition $\forall x,  d^j_{x, x+1}(0) = 0 $. In addition, $d^j_{x, x^\prime}(t) = 0, \forall x^\prime \neq x+1$. Please note that the demand unit, represented by $L^j(t)$, is in kW. To connect to the IEEE 118-bus system, we need to convert the demand from kW to MW by dividing it by 1000. In this problem, you should consider $\mathbf{p_t} -  \mathbf{d_t} - \mathbf{L_t} = \mathbf{B} \boldsymbol{\theta_t} $ in the above unit commitment problem, where $[\mathbf{L_t}]_j =  L^j(t)$.
+
+%\item  \textbf{Extra Bonus Questions:}   If   EV charging is  controllable, we can consider the control variables  $ \partial d_{x, x^{\prime}}(t)$  together with $P_{t},\boldsymbol{\theta_t},\mathbf{u}_{t},\mathbf{v}_{t},\mathbf{w}_{t},\mathbf{r}_{t}$ to minimize the operational cost.
+%\begin{equation}
+%\begin{array}{ll}& \min _{\mathbf{P_{t},\boldsymbol{\theta_t},\mathbf{u}_{t},\mathbf{v}_{t},\mathbf{w}_{t},\mathbf{r}_{t}}, \partial d_{x, x^{\prime}}(t),\forall t\in \mathcal{T}}    \mathbf{p_{t}^T}\mathbf{c_{g}}+\mathbf{u_{t}^T}\mathbf{c_{g}^{nl}}+\mathbf{v_{t}^T}\mathbf{c_{g}^{su}}+\mathbf{w_{gt}^T}\mathbf{c_{g}^{sd}} + \mathbf{r_{t}^T}\mathbf{c^{r}_{g}}, \\ \text{s.t.} &  \text{power flow limits, \quad}  \mathbf{\underline{p}_{\ell}} \leq \text{diag}(\textbf{b}) \textbf{M}\boldsymbol{\theta_t} \leq \mathbf{\overline{p}_{\ell}},  \\& \text{generator limits, \quad} \text{diag}(\mathbf{\underline{p}})\mathbf{u_{t}}+\mathbf{r_{t}}\leq \mathbf{p}\leq \text{diag}(\mathbf{\overline{p}})\mathbf{u_{t}}-\mathbf{r_{t}}, \quad  \\& \text{power balance, \quad} \mathbf{p_t} -  \mathbf{d_t} - \mathbf{L_t} = \mathbf{B} \boldsymbol{\theta_t} \\& \text{ramping limits, \quad} \mathbf{p_{t}}-\mathbf{p_{t-1}}\leq \text{diag}(\mathbf{R_{g}^{hr}})\mathbf{u_{t-1}}+\text{diag}(\mathbf{R_{g}^{su}})\mathbf{v_{t}}, \\& \text{ramping limits, \quad} \mathbf{p_{t-1}}-\mathbf{p_{t}}\leq \text{diag}(\mathbf{R_{g}^{hr}})\mathbf{u_{t}}+\text{diag}(\mathbf{R_{g}^{sd}})\mathbf{w_{t}}, \quad \forall t\in \mathcal{T},\\& \text{commitment constraints, \quad}\sum_{s=t-\underline{t}^u_{g}+1}^{t}\mathbf{v_{s}}\leq \mathbf{u_{t}}, \quad \forall t \in \{\underline{t}^u_{g},\dots,N\},\\& \text{commitment constraints, \quad} \sum_{s=t-\underline{t}^d_{g}+1}^{t}\mathbf{w_{s}}\leq 1-\mathbf{u_{t}}, \quad \forall t \in \{\underline{t}^d_{g},\dots,N\},\\& \text{commitment constraints, \quad}\mathbf{v_{t}}-\mathbf{w_{t}}=\mathbf{u_{t}}-\mathbf{u_{t-1}}, \quad \forall t\in \mathcal{T},\\
+%& \text{reserve capacity constraints, \quad}  \mathds{1}^{\mathrm{T}}\mathbf{r_{t}}\geq \mathds{1}^{\mathrm{T}}(0.07\mathbf{d^p_{t}}), \quad \forall t\in \mathcal{T}, \\
+%& \text{reserve capacity constraints, \quad}  \mathds{1}^{\mathrm{T}}\mathbf{r_{t}}\otimes\mathds{1}\geq \mathbf{p_{t}}+\mathbf{r_{t}}, \quad \forall t\in \mathcal{T}, \\
+%& \text{reserve capacity constraints, \quad}  \mathbf{r_{t}}\leq \text{diag}(\mathbf{R_{g}})\mathbf{u_{t}}, \quad \forall t\in \mathcal{T}. \\
+%& \text{EV Charging Constraints, \quad} [\mathbf{L}_t]_j=\sum_{x=0}^5 \sum_{x^{\prime}=0}^5\left(x^{\prime}-x\right) \partial d^j_{x, x^{\prime}}(t),  \\
+%& \partial d^j_{x, x^{\prime}}(t) \ge 0, \sum_{x^{\prime}=1}^5 \partial d^j_{x, x^{\prime}}(t) \leq n^j_x(t), \\
+%&n^j_x(t)=a^j_x(t)+\sum_{x^{\prime}=0}^5\left[d^j_{x^{\prime}, x}(t-1)-d^j_{x, x^{\prime}}(t-1)\right].
+%\end{array}
+%\end{equation}
+%Likewise, we set the initial condition $\forall x, j,  d^j_{x, x+1}(0) = 0 $.  Again,  the demand unit, represented by $L^j(t)$, is in kW. To connect to the IEEE 118-bus system, we need to convert the demand from kW to MW by dividing it by 1000.
+%\end{itemize}
+\end{questions}
+
+% \begin{questions}
+
+
+% \end{questions}
+
+\end{document}
+
+
+
+
